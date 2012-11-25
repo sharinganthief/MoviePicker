@@ -1,0 +1,22 @@
+﻿<UserControl xmlns:chartingToolkit="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"  x:Class="EntityMovieApp.Pages.Analytics"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="600">
+    <Grid>
+            <!--<chartingToolkit:Chart  Name="genreChart" Title="Movies Per Genre" 
+		VerticalAlignment="Top" Margin="10,23,10,0" Height="280" RenderTransformOrigin="0.5,0.5">
+            <chartingToolkit:PieSeries DependentValuePath="Value" 
+		IndependentValuePath="Key" ItemsSource="{Binding}" 
+		IsSelectionEnabled="false" Margin="10,10,0,10" HorizontalAlignment="Left" Width="248" />
+        </chartingToolkit:Chart>-->
+        <chartingToolkit:Chart  Name="genreChart" Title="Movies Per Genre" 
+		VerticalAlignment="Top" Margin="10,0,0,0" Height="307" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" Width="580">
+            <chartingToolkit:BarSeries DependentValuePath="Value" 
+		IndependentValuePath="Key" ItemsSource="{Binding}" 
+		IsSelectionEnabled="false" Margin="10,10,8,0" Height="186" VerticalAlignment="Top" />
+        </chartingToolkit:Chart>
+    </Grid>
+</UserControl>

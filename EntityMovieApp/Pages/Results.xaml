@@ -1,0 +1,63 @@
+﻿<UserControl xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"  x:Class="EntityMovieApp.Pages.Results"
+        Height="600" Width="600" Loaded="UserControl_Loaded_1">
+    <UserControl.Resources>
+        <Storyboard x:Key="loginMouseEnter">
+            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="loginTextBlock" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)">
+                <SplineDoubleKeyFrame KeyTime="00:00:00.2000000" Value="1.2"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="loginTextBlock" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
+                <SplineDoubleKeyFrame KeyTime="00:00:00.2000000" Value="1.2"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="loginMouseLeave">
+            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="loginTextBlock" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)">
+                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="1.2"/>
+                <SplineDoubleKeyFrame KeyTime="00:00:00.2000000" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="loginTextBlock" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
+                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="1.2"/>
+                <SplineDoubleKeyFrame KeyTime="00:00:00.2000000" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </UserControl.Resources>
+    <UserControl.Triggers>
+        <EventTrigger RoutedEvent="Mouse.MouseEnter" SourceName="loginTextBlock">
+            <BeginStoryboard Storyboard="{StaticResource loginMouseEnter}"/>
+        </EventTrigger>
+        <!--<EventTrigger RoutedEvent="Mouse.MouseEnter" SourceName="registerTextBlock">
+            <BeginStoryboard x:Name="registerMouseEnter_BeginStoryboard" Storyboard="{StaticResource registerMouseEnter}"/>
+        </EventTrigger>-->
+        <EventTrigger RoutedEvent="Mouse.MouseLeave" SourceName="loginTextBlock">
+            <BeginStoryboard x:Name="loginMouseLeave_BeginStoryboard" Storyboard="{StaticResource loginMouseLeave}"/>
+        </EventTrigger>
+        <!--<EventTrigger RoutedEvent="Mouse.MouseLeave" SourceName="registerTextBlock">
+            <BeginStoryboard x:Name="registerMouseLeave_BeginStoryboard" Storyboard="{StaticResource registerMouseLeave}"/>
+        </EventTrigger>-->
+    </UserControl.Triggers>
+    <Grid Margin="0,0,0,27" >
+
+        <!--<layoutToolkit:Accordion Margin="187,108,0,0" Name="accordionTest" Focusable="True" ExpandDirection="Down" IsEnabled="True">
+                                 <layoutToolkit:AccordionItem Content="Test"/>
+            </layoutToolkit:Accordion>-->
+        <Label Height="28" HorizontalAlignment="Left" Margin="91,124,0,0" x:Name="genreLabel" VerticalAlignment="Top" />
+        <Button Content="Maybe" x:Name="maybeButton" HorizontalAlignment="Left" Margin="158,485,0,0" VerticalAlignment="Top" Width="128" Click="MaybeButtonClicked"/>
+        <Button Content="No" x:Name="noButton" HorizontalAlignment="Left" Margin="230,532,0,0" VerticalAlignment="Top" Width="130" Click="NoButtonClicked"/>
+        <Button Content="Show Maybes" x:Name="showMaybeButton" IsEnabled="false" HorizontalAlignment="Left" Margin="304,485,0,0" VerticalAlignment="Top" Width="126" Click="ShowMaybesButtonClicked" RenderTransformOrigin="0.441,1.773"/>
+        <WrapPanel>
+        <TreeView HorizontalAlignment="Center" Name="resultTree" TextOptions.TextFormattingMode="Ideal" ScrollViewer.HorizontalScrollBarVisibility="Disabled" FontSize="18" BorderThickness="0" ScrollViewer.VerticalScrollBarVisibility="Disabled" Height="419" Margin="158,10,21,0" VerticalAlignment="Top" Width="445" Background="#000000" />
+        </WrapPanel>
+        <TextBlock x:Name="loginTextBlock" HorizontalAlignment="Center"  Margin="244,445,254,0" VerticalAlignment="Top" FontSize="16" Text="Back To Picker" TextWrapping="Wrap" TextAlignment="Right" RenderTransformOrigin="0.5,0.5" MouseLeftButtonDown="LoginTextBlockMouseLeftButtonDown1">
+            <TextBlock.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </TextBlock.RenderTransform>
+        </TextBlock>
+    </Grid>
+</UserControl>

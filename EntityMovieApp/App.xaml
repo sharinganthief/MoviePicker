@@ -1,0 +1,10 @@
+﻿<Application x:Class="EntityMovieApp.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             StartupUri="Pages\PageSwitcher.xaml">
+    <Application.Resources>
+        <ResourceDictionary Source="BlackGlossTheme.xaml"/>
+        <!--C:\Users\Kal-El\Documents\Visual Studio 2012\Projects\EntityMovieApp - Test\packages\wpfthemes.0.0.1\lib\WPF.Themes.dll-->
+    </Application.Resources>
+
+</Application>

@@ -1,0 +1,26 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="EntityMovieApp.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="MovieBackupConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=MARVIN;Initial Catalog=MovieBackup;Integrated Security=True&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=MARVIN;Initial Catalog=MovieBackup;Integrated Security=True</Value>
+    </Setting>
+    <Setting Name="NetflixEmail" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">petamichael@gmail.com</Value>
+    </Setting>
+    <Setting Name="NetflixPassword" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">berglund</Value>
+    </Setting>
+    <Setting Name="NetflixLogin" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">https://signup.netflix.com/Login</Value>
+    </Setting>
+    <Setting Name="NetflixWatchInstantly" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://movies.netflix.com/WiHome</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

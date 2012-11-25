@@ -1,0 +1,514 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MovieCollectionModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="MovieCollectionModelStoreContainer">
+          <EntitySet Name="FilmRoles" EntityType="MovieCollectionModel.Store.FilmRoles" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Films" EntityType="MovieCollectionModel.Store.Films" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="GenreFilmIndex" EntityType="MovieCollectionModel.Store.GenreFilmIndex" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Genres" EntityType="MovieCollectionModel.Store.Genres" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="People" EntityType="MovieCollectionModel.Store.People" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="PersonFilmIndex" EntityType="MovieCollectionModel.Store.PersonFilmIndex" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Ratings" EntityType="MovieCollectionModel.Store.Ratings" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Users" EntityType="MovieCollectionModel.Store.Users" store:Type="Tables" store:Schema="dbo" store:Name="Users">
+            <DefiningQuery>SELECT 
+      [Users].[Username] AS [Username], 
+      [Users].[FirstName] AS [FirstName], 
+      [Users].[LastName] AS [LastName], 
+      [Users].[Password] AS [Password], 
+      [Users].[CollectionEditor] AS [CollectionEditor]
+      FROM [dbo].[Users] AS [Users]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Films_Ratings" Association="MovieCollectionModel.Store.FK_Films_Ratings">
+            <End Role="Ratings" EntitySet="Ratings" />
+            <End Role="Films" EntitySet="Films" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GenreFilmIndex_Films" Association="MovieCollectionModel.Store.FK_GenreFilmIndex_Films">
+            <End Role="Films" EntitySet="Films" />
+            <End Role="GenreFilmIndex" EntitySet="GenreFilmIndex" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GenreFilmIndex_Genres" Association="MovieCollectionModel.Store.FK_GenreFilmIndex_Genres">
+            <End Role="Genres" EntitySet="Genres" />
+            <End Role="GenreFilmIndex" EntitySet="GenreFilmIndex" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonFilmIndex_FilmRoles" Association="MovieCollectionModel.Store.FK_PersonFilmIndex_FilmRoles">
+            <End Role="FilmRoles" EntitySet="FilmRoles" />
+            <End Role="PersonFilmIndex" EntitySet="PersonFilmIndex" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonFilmIndex_Films" Association="MovieCollectionModel.Store.FK_PersonFilmIndex_Films">
+            <End Role="Films" EntitySet="Films" />
+            <End Role="PersonFilmIndex" EntitySet="PersonFilmIndex" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonFilmIndex_People" Association="MovieCollectionModel.Store.FK_PersonFilmIndex_People">
+            <End Role="People" EntitySet="People" />
+            <End Role="PersonFilmIndex" EntitySet="PersonFilmIndex" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="FilmRoles">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="int" Nullable="false" />
+          <Property Name="RoleName" Type="varchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Films">
+          <Key>
+            <PropertyRef Name="FilmID" />
+          </Key>
+          <Property Name="FilmID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Length" Type="int" Nullable="false" />
+          <Property Name="Year" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" Nullable="false" MaxLength="400" />
+          <Property Name="MovieRating" Type="int" Nullable="false" />
+          <Property Name="Plot" Type="nvarchar(max)" />
+          <Property Name="ImdbURL" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="GenreFilmIndex">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="GenreID" Type="int" Nullable="false" />
+          <Property Name="FilmID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Genres">
+          <Key>
+            <PropertyRef Name="GenreID" />
+          </Key>
+          <Property Name="GenreID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="People">
+          <Key>
+            <PropertyRef Name="PersonID" />
+          </Key>
+          <Property Name="PersonID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="nvarchar" Nullable="false" MaxLength="400" />
+          <Property Name="LastName" Type="nvarchar" Nullable="false" MaxLength="400" />
+        </EntityType>
+        <EntityType Name="PersonFilmIndex">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="PersonID" Type="int" Nullable="false" />
+          <Property Name="FilmID" Type="int" Nullable="false" />
+          <Property Name="Character" Type="nvarchar" MaxLength="400" />
+          <Property Name="RoleID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ratings">
+          <Key>
+            <PropertyRef Name="RatingID" />
+          </Key>
+          <Property Name="RatingID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="MPAARating" Type="nvarchar" Nullable="false" MaxLength="10" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'MovieCollection.dbo.Users' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Username" />
+            <PropertyRef Name="FirstName" />
+            <PropertyRef Name="LastName" />
+            <PropertyRef Name="Password" />
+            <PropertyRef Name="CollectionEditor" />
+          </Key>
+          <Property Name="Username" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="FirstName" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="LastName" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="CollectionEditor" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Films_Ratings">
+          <End Role="Ratings" Type="MovieCollectionModel.Store.Ratings" Multiplicity="1" />
+          <End Role="Films" Type="MovieCollectionModel.Store.Films" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ratings">
+              <PropertyRef Name="RatingID" />
+            </Principal>
+            <Dependent Role="Films">
+              <PropertyRef Name="MovieRating" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GenreFilmIndex_Films">
+          <End Role="Films" Type="MovieCollectionModel.Store.Films" Multiplicity="1" />
+          <End Role="GenreFilmIndex" Type="MovieCollectionModel.Store.GenreFilmIndex" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Films">
+              <PropertyRef Name="FilmID" />
+            </Principal>
+            <Dependent Role="GenreFilmIndex">
+              <PropertyRef Name="FilmID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GenreFilmIndex_Genres">
+          <End Role="Genres" Type="MovieCollectionModel.Store.Genres" Multiplicity="1" />
+          <End Role="GenreFilmIndex" Type="MovieCollectionModel.Store.GenreFilmIndex" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genres">
+              <PropertyRef Name="GenreID" />
+            </Principal>
+            <Dependent Role="GenreFilmIndex">
+              <PropertyRef Name="GenreID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersonFilmIndex_FilmRoles">
+          <End Role="FilmRoles" Type="MovieCollectionModel.Store.FilmRoles" Multiplicity="1" />
+          <End Role="PersonFilmIndex" Type="MovieCollectionModel.Store.PersonFilmIndex" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FilmRoles">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="PersonFilmIndex">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersonFilmIndex_Films">
+          <End Role="Films" Type="MovieCollectionModel.Store.Films" Multiplicity="1" />
+          <End Role="PersonFilmIndex" Type="MovieCollectionModel.Store.PersonFilmIndex" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Films">
+              <PropertyRef Name="FilmID" />
+            </Principal>
+            <Dependent Role="PersonFilmIndex">
+              <PropertyRef Name="FilmID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersonFilmIndex_People">
+          <End Role="People" Type="MovieCollectionModel.Store.People" Multiplicity="1" />
+          <End Role="PersonFilmIndex" Type="MovieCollectionModel.Store.PersonFilmIndex" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="People">
+              <PropertyRef Name="PersonID" />
+            </Principal>
+            <Dependent Role="PersonFilmIndex">
+              <PropertyRef Name="PersonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MovieCollectionModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="MovieCollectionEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Users" EntityType="MovieCollectionModel.User" />
+          <EntitySet Name="FilmRoles" EntityType="MovieCollectionModel.FilmRole" />
+          <EntitySet Name="Films" EntityType="MovieCollectionModel.Film" />
+          <EntitySet Name="GenreFilmIndexes" EntityType="MovieCollectionModel.GenreFilmIndex" />
+          <EntitySet Name="Genres" EntityType="MovieCollectionModel.Genre" />
+          <EntitySet Name="People" EntityType="MovieCollectionModel.Person" />
+          <EntitySet Name="PersonFilmIndexes" EntityType="MovieCollectionModel.PersonFilmIndex" />
+          <AssociationSet Name="FK_PersonFilmIndex_FilmRoles" Association="MovieCollectionModel.FK_PersonFilmIndex_FilmRoles">
+            <End Role="FilmRole" EntitySet="FilmRoles" />
+            <End Role="PersonFilmIndex" EntitySet="PersonFilmIndexes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GenreFilmIndex_Films" Association="MovieCollectionModel.FK_GenreFilmIndex_Films">
+            <End Role="Film" EntitySet="Films" />
+            <End Role="GenreFilmIndex" EntitySet="GenreFilmIndexes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonFilmIndex_Films" Association="MovieCollectionModel.FK_PersonFilmIndex_Films">
+            <End Role="Film" EntitySet="Films" />
+            <End Role="PersonFilmIndex" EntitySet="PersonFilmIndexes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GenreFilmIndex_Genres" Association="MovieCollectionModel.FK_GenreFilmIndex_Genres">
+            <End Role="Genre" EntitySet="Genres" />
+            <End Role="GenreFilmIndex" EntitySet="GenreFilmIndexes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonFilmIndex_People" Association="MovieCollectionModel.FK_PersonFilmIndex_People">
+            <End Role="Person" EntitySet="People" />
+            <End Role="PersonFilmIndex" EntitySet="PersonFilmIndexes" />
+          </AssociationSet>
+          <EntitySet Name="Ratings" EntityType="MovieCollectionModel.Rating" />
+          <AssociationSet Name="FK_Films_Ratings" Association="MovieCollectionModel.FK_Films_Ratings">
+            <End Role="Rating" EntitySet="Ratings" />
+            <End Role="Film" EntitySet="Films" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Username" />
+            <PropertyRef Name="FirstName" />
+            <PropertyRef Name="LastName" />
+            <PropertyRef Name="Password" />
+            <PropertyRef Name="CollectionEditor" />
+          </Key>
+          <Property Type="String" Name="Username" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="FirstName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="LastName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="CollectionEditor" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FilmRole">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Type="Int32" Name="RoleID" Nullable="false" />
+          <Property Type="String" Name="RoleName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="PersonFilmIndexes" Relationship="MovieCollectionModel.FK_PersonFilmIndex_FilmRoles" FromRole="FilmRole" ToRole="PersonFilmIndex" />
+        </EntityType>
+        <EntityType Name="Film">
+          <Key>
+            <PropertyRef Name="FilmID" />
+          </Key>
+          <Property Type="Int32" Name="FilmID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="Length" Nullable="false" />
+          <Property Type="Int32" Name="Year" Nullable="false" />
+          <Property Type="String" Name="Title" Nullable="false" MaxLength="400" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="MovieRating" Nullable="false" />
+          <Property Type="String" Name="Plot" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ImdbURL" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="GenreFilmIndexes" Relationship="MovieCollectionModel.FK_GenreFilmIndex_Films" FromRole="Film" ToRole="GenreFilmIndex" />
+          <NavigationProperty Name="PersonFilmIndexes" Relationship="MovieCollectionModel.FK_PersonFilmIndex_Films" FromRole="Film" ToRole="PersonFilmIndex" />
+          <NavigationProperty Name="Rating" Relationship="MovieCollectionModel.FK_Films_Ratings" FromRole="Film" ToRole="Rating" />
+        </EntityType>
+        <EntityType Name="GenreFilmIndex">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="GenreID" Nullable="false" />
+          <Property Type="Int32" Name="FilmID" Nullable="false" />
+          <NavigationProperty Name="Film" Relationship="MovieCollectionModel.FK_GenreFilmIndex_Films" FromRole="GenreFilmIndex" ToRole="Film" />
+          <NavigationProperty Name="Genre" Relationship="MovieCollectionModel.FK_GenreFilmIndex_Genres" FromRole="GenreFilmIndex" ToRole="Genre" />
+        </EntityType>
+        <EntityType Name="Genre">
+          <Key>
+            <PropertyRef Name="GenreID" />
+          </Key>
+          <Property Type="Int32" Name="GenreID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="GenreFilmIndexes" Relationship="MovieCollectionModel.FK_GenreFilmIndex_Genres" FromRole="Genre" ToRole="GenreFilmIndex" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="PersonID" />
+          </Key>
+          <Property Type="Int32" Name="PersonID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="FirstName" Nullable="false" MaxLength="400" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="LastName" Nullable="false" MaxLength="400" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PersonFilmIndexes" Relationship="MovieCollectionModel.FK_PersonFilmIndex_People" FromRole="Person" ToRole="PersonFilmIndex" />
+        </EntityType>
+        <EntityType Name="PersonFilmIndex">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="PersonID" Nullable="false" />
+          <Property Type="Int32" Name="FilmID" Nullable="false" />
+          <Property Type="String" Name="Character" MaxLength="400" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="RoleID" Nullable="false" />
+          <NavigationProperty Name="FilmRole" Relationship="MovieCollectionModel.FK_PersonFilmIndex_FilmRoles" FromRole="PersonFilmIndex" ToRole="FilmRole" />
+          <NavigationProperty Name="Film" Relationship="MovieCollectionModel.FK_PersonFilmIndex_Films" FromRole="PersonFilmIndex" ToRole="Film" />
+          <NavigationProperty Name="Person" Relationship="MovieCollectionModel.FK_PersonFilmIndex_People" FromRole="PersonFilmIndex" ToRole="Person" />
+        </EntityType>
+        <Association Name="FK_PersonFilmIndex_FilmRoles">
+          <End Type="MovieCollectionModel.FilmRole" Role="FilmRole" Multiplicity="1" />
+          <End Type="MovieCollectionModel.PersonFilmIndex" Role="PersonFilmIndex" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FilmRole">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="PersonFilmIndex">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GenreFilmIndex_Films">
+          <End Type="MovieCollectionModel.Film" Role="Film" Multiplicity="1" />
+          <End Type="MovieCollectionModel.GenreFilmIndex" Role="GenreFilmIndex" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Film">
+              <PropertyRef Name="FilmID" />
+            </Principal>
+            <Dependent Role="GenreFilmIndex">
+              <PropertyRef Name="FilmID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersonFilmIndex_Films">
+          <End Type="MovieCollectionModel.Film" Role="Film" Multiplicity="1" />
+          <End Type="MovieCollectionModel.PersonFilmIndex" Role="PersonFilmIndex" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Film">
+              <PropertyRef Name="FilmID" />
+            </Principal>
+            <Dependent Role="PersonFilmIndex">
+              <PropertyRef Name="FilmID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GenreFilmIndex_Genres">
+          <End Type="MovieCollectionModel.Genre" Role="Genre" Multiplicity="1" />
+          <End Type="MovieCollectionModel.GenreFilmIndex" Role="GenreFilmIndex" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genre">
+              <PropertyRef Name="GenreID" />
+            </Principal>
+            <Dependent Role="GenreFilmIndex">
+              <PropertyRef Name="GenreID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersonFilmIndex_People">
+          <End Type="MovieCollectionModel.Person" Role="Person" Multiplicity="1" />
+          <End Type="MovieCollectionModel.PersonFilmIndex" Role="PersonFilmIndex" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="PersonID" />
+            </Principal>
+            <Dependent Role="PersonFilmIndex">
+              <PropertyRef Name="PersonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Rating">
+          <Key>
+            <PropertyRef Name="RatingID" />
+          </Key>
+          <Property Type="Int32" Name="RatingID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="MPAARating" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Films" Relationship="MovieCollectionModel.FK_Films_Ratings" FromRole="Rating" ToRole="Film" />
+        </EntityType>
+        <Association Name="FK_Films_Ratings">
+          <End Type="MovieCollectionModel.Rating" Role="Rating" Multiplicity="1" />
+          <End Type="MovieCollectionModel.Film" Role="Film" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rating">
+              <PropertyRef Name="RatingID" />
+            </Principal>
+            <Dependent Role="Film">
+              <PropertyRef Name="MovieRating" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MovieCollectionModelStoreContainer" CdmEntityContainer="MovieCollectionEntities">
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="MovieCollectionModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="CollectionEditor" ColumnName="CollectionEditor" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FilmRoles">
+            <EntityTypeMapping TypeName="MovieCollectionModel.FilmRole">
+              <MappingFragment StoreEntitySet="FilmRoles">
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Films">
+            <EntityTypeMapping TypeName="MovieCollectionModel.Film">
+              <MappingFragment StoreEntitySet="Films">
+                <ScalarProperty Name="ImdbURL" ColumnName="ImdbURL" />
+                <ScalarProperty Name="Plot" ColumnName="Plot" />
+                <ScalarProperty Name="MovieRating" ColumnName="MovieRating" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Length" ColumnName="Length" />
+                <ScalarProperty Name="FilmID" ColumnName="FilmID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GenreFilmIndexes">
+            <EntityTypeMapping TypeName="MovieCollectionModel.GenreFilmIndex">
+              <MappingFragment StoreEntitySet="GenreFilmIndex">
+                <ScalarProperty Name="FilmID" ColumnName="FilmID" />
+                <ScalarProperty Name="GenreID" ColumnName="GenreID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Genres">
+            <EntityTypeMapping TypeName="MovieCollectionModel.Genre">
+              <MappingFragment StoreEntitySet="Genres">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="GenreID" ColumnName="GenreID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="People">
+            <EntityTypeMapping TypeName="MovieCollectionModel.Person">
+              <MappingFragment StoreEntitySet="People">
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PersonFilmIndexes">
+            <EntityTypeMapping TypeName="MovieCollectionModel.PersonFilmIndex">
+              <MappingFragment StoreEntitySet="PersonFilmIndex">
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="Character" ColumnName="Character" />
+                <ScalarProperty Name="FilmID" ColumnName="FilmID" />
+                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ratings">
+            <EntityTypeMapping TypeName="MovieCollectionModel.Rating">
+              <MappingFragment StoreEntitySet="Ratings">
+                <ScalarProperty Name="MPAARating" ColumnName="MPAARating" />
+                <ScalarProperty Name="RatingID" ColumnName="RatingID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="Movie" ZoomLevel="86">
+        <EntityTypeShape EntityType="MovieCollectionModel.User" Width="1.5" PointX="13.5" PointY="5.625" />
+        <EntityTypeShape EntityType="MovieCollectionModel.FilmRole" Width="1.5" PointX="8.5" PointY="3.75" />
+        <EntityTypeShape EntityType="MovieCollectionModel.Film" Width="1.5" PointX="0.548066776501046" PointY="0.24433209013395574" />
+        <EntityTypeShape EntityType="MovieCollectionModel.GenreFilmIndex" Width="1.5" PointX="11.5" PointY="2.125" />
+        <EntityTypeShape EntityType="MovieCollectionModel.Genre" Width="1.5" PointX="15.25" PointY="3.625" />
+        <EntityTypeShape EntityType="MovieCollectionModel.Person" Width="1.5" PointX="6.375" PointY="6.375" />
+        <EntityTypeShape EntityType="MovieCollectionModel.PersonFilmIndex" Width="1.5" PointX="2.5" PointY="4.25" />
+        <AssociationConnector Association="MovieCollectionModel.FK_PersonFilmIndex_FilmRoles" />
+        <AssociationConnector Association="MovieCollectionModel.FK_GenreFilmIndex_Films" />
+        <AssociationConnector Association="MovieCollectionModel.FK_PersonFilmIndex_Films" />
+        <AssociationConnector Association="MovieCollectionModel.FK_GenreFilmIndex_Genres" />
+        <AssociationConnector Association="MovieCollectionModel.FK_PersonFilmIndex_People" />
+        <EntityTypeShape EntityType="MovieCollectionModel.Rating" Width="1.5" PointX="15.5" PointY="1" />
+        <AssociationConnector Association="MovieCollectionModel.FK_Films_Ratings" />
+        </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>
