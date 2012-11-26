@@ -12,12 +12,17 @@ namespace EntityMovieApp.Pages
     /// </summary>
     public partial class Maybes
     {
+        private Window _mainWindow { get; set; }
+        private int _maybeCount { get; set; }
+
         public Maybes(ICollection<Film> maybes )
         {
             InitializeComponent();
             this.SetPhillipBackgroundColors();
-            Window _mainWindow = Application.Current.MainWindow;
-            _mainWindow.Title = Smart.Format("{0} Maybe{0|s} selected", maybes.Count);
+            //_mainWindow = Application.Current.MainWindow;
+            _mainWindow = Application.Current.Windows[1];
+            _maybeCount = maybes.Count;
+            if (_mainWindow != null) _mainWindow.Title = Smart.Format("{0} Maybe{0:|s} selected", _maybeCount);
             ShowMaybes(maybes);
         }
 
@@ -27,6 +32,20 @@ namespace EntityMovieApp.Pages
             {
                 node.IsExpanded = false;
                 maybeTree.Items.Add( node );
+            }
+
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            TreeViewItem item = maybeTree.SelectedItem as TreeViewItem;
+            if (item != null)
+            {
+                maybeTree.Items.Remove(item);
+                maybeTree.Items.Refresh();
+                _maybeCount--;
+                _mainWindow.Title = Smart.Format("{0}: Maybe{0|s} selected", _maybeCount);
+
             }
 
         }
